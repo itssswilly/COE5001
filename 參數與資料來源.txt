@@ -1,0 +1,144 @@
+================================================================
+ AI 資料中心液冷廢熱驅動吸附式冰機 — 參數與資料來源維護檔
+ 最後更新：2026-11-10
+ 對應程式：model.py（Params 類別內的同名參數）
+ 規則：改參數時，同步更新本檔的「數值 / 來源 / 查詢日期 / 可信度」
+       可信度：A=官方/一手資料  B=期刊/新聞轉述官方  C=工程經驗值/估計
+================================================================
+
+----------------------------------------------------------------
+1. 場址與氣象
+----------------------------------------------------------------
+[weather] 臺南測站 1991–2020 氣候平均值（月均最高/平均/最低溫、月均相對濕度）
+  Jan 22.9/17.8/14.5 75.0 | Feb 24.0/18.9/15.5 75.5 | Mar 26.5/21.6/18.0 73.8
+  Apr 29.3/24.9/21.7 74.6 | May 31.4/27.5/24.7 75.3 | Jun 32.4/28.9/26.3 77.2
+  Jul 33.1/29.4/26.7 76.1 | Aug 32.6/28.9/26.3 78.3 | Sep 32.5/28.6/26.0 75.2
+  Oct 30.8/26.3/23.3 72.8 | Nov 28.1/23.4/20.3 74.5 | Dec 24.4/19.6/16.3 73.7
+  來源：中央氣象署（經 Wikipedia "Tainan" 氣候表轉載，原始出處 Central Weather Bureau）
+        https://en.wikipedia.org/wiki/Tainan
+  查詢：2026-11-10   可信度：B
+  用法：model.py 以月平均值 + 日夜正弦變化 + AR(1) 隨機擾動合成 8760 h 逐時資料，
+        濕球溫度用 Stull (2011) 經驗式。
+  ★待辦：到 CODiS（https://codis.cwa.gov.tw）下載臺南/永康測站實測逐時資料，
+        存成 weather.csv（欄位 T_db, RH，8760 列），設 Params.weather_csv 即可取代合成資料。
+
+[design_wb] 夏季設計濕球 28 °C — 題目給定（約等於 ASHRAE 0.4% 等級）。可信度：C
+
+----------------------------------------------------------------
+2. IT 負載與液冷
+----------------------------------------------------------------
+[P_IT] 10 MW；[f_liquid] 0.82（液冷帶走 80–85%，取中間）— 題目給定
+[loop_dT] CDU 供回水溫差 10 K — 工程經驗值（DLC 冷板常見 8–12 K）。可信度：C
+[base_supply_fixed] Baseline 供水固定溫度：0 = 題目設定（追蹤濕球，情境 A）；40 = 溫水冷卻對照（情境 B）
+  依據：NVIDIA GB 系列溫水冷卻推動供水至 ~45 °C（見下方 T_supply_limit 來源）。可信度：C
+[T_supply_limit] 供水上限 45 °C — ASHRAE TC9.9 液冷等級 W45；
+  NVIDIA 已推動 GB 系列「溫水冷卻」(warm-water cooling) 至約 45 °C 供水。
+  https://www.1-act.com/resources/blog/warm-water-cooling-for-ai-data-centers
+  查詢：2026-11-10   可信度：B–C（以 NVIDIA/OEM 正式規格書為準）
+
+[k_leak] 晶片升溫造成的 IT 耗電增加率（每 °C 冷卻液升溫，占液冷 IT 功率比例）
+  基準值 0.15 %/K，敏感度 0.05–0.50 %/K
+  依據：
+   (a) 混合液/氣冷機櫃實測：入口 24→42 °C，滿載機櫃耗電 +4%（≈0.22 %/K，含風扇）
+       https://www.electronics-cooling.com/2019/01/the-impact-of-hybrid-cooling-on-the-power-and-computational-efficiency-of-cloud-computing-racks/
+   (b) GPU 功耗隨晶粒溫度與電壓非線性（約二次）上升（Kepler K20 實驗）
+       https://arxiv.org/pdf/1407.8116
+   (c) 預印本稱當代資料中心 GPU 漏電係數約 0.5–1 %/K（取的是「漏電部分」或總功率不明，未查到一手數據）
+       https://arxiv.org/pdf/2501.14757
+  可信度：C（★全模型最關鍵、最不確定的參數，結論必須搭配敏感度分析呈現）
+  ★待辦：找 GB200/GB300 的「功率 vs. 接面溫度（固定頻率）」實測或廠商資料。
+
+----------------------------------------------------------------
+3. 冷卻設備
+----------------------------------------------------------------
+[電動冰機] COP = carnot_eff × T_evap/(T_cond − T_evap)，carnot_eff = 0.48，
+  冰水 18 °C（數據中心 CRAH 高溫冰水）；設計濕球 28 °C 時 COP ≈ 5.3，年平均約 6.4。
+  對應題目 COP 5–6。可信度：C
+
+[吸附式冰機（矽膠-水）] 特性方程式 ΔΔt 法（Kühn & Ziegler 型）：
+  ΔΔt = (T_H − T_M) − B·(T_M − T_L)，B = 1.5，ΔΔt0 = 2 K（停機門檻）
+  額定點 65/30/18 °C（熱水/冷卻水/冰水）→ 容量係數 1.0，COP ≈ 0.58（COP_max 0.62）
+  參考：
+   - Fahrenheit（德國廠）矽膠機型熱水 50–95 °C、冰水 8–21 °C、單機 10–100 kW，可串接
+     https://fahrenheit.cool/en/?p=2619
+     https://tif-thessaloniki.german-pavilion.com/en/sites/exhibitors/104713
+   - Bry-Air 吸附式冰機熱水 52–93 °C
+     https://www.bryair.com/wp-content/uploads/2025/07/ts-adsorption_chiller.pdf
+   - 資料中心 ≤60 °C 廢熱驅動矽膠-水吸附機之技術經濟分析
+     https://www.researchgate.net/publication/353463282
+   - 題目給定 COP 0.5–0.6、驅動 ≥55 °C
+  可信度：B–C（B、ΔΔt0 宜以實際廠商性能曲線回歸校正）
+  [ads_TH_min] 最低驅動熱水溫度 50 °C（Fahrenheit 宣稱 50 °C 起可運轉；題目寫 ≥55 °C，
+    龍捲風圖以 45/55 °C 做敏感度）。可信度：B–C
+  [ads_el_ratio] 吸附機本體耗電（閥件、真空、控制）0.02 kW/kW冷 — 經驗值 C
+  [ads_hw_pump] 熱水泵 0.008 kW/kW驅動熱 — 經驗值 C
+
+[排熱輔機] 每 kW 排熱的風扇+泵耗電
+  rej_hot_loop  = 0.012 kW/kW（液冷迴路經冷卻塔，溫差 10 K，流量小）
+  rej_cond_loop = 0.025 kW/kW（冰機/吸附機冷凝迴路，溫差 5 K，流量大）
+  chw_pump = 0.015 kW/kW冷；cdu_pump = 0.010 kW/kW液冷熱（兩情境相同）
+  ups_loss = 4% IT；misc_fixed = 100 kW
+  可信度：C
+
+[冷卻塔用水] 蒸發 1.3 L/kWh排熱（約 85% 以潛熱排出 ÷ 2,400 kJ/kg）
+  濃縮倍數 4 → 排放水 = 蒸發/(C−1)；飄散忽略（有除霧器約 0.01% 循環水量）
+  https://www.power-eng.com/operations-maintenance/understanding-the-basics-of-cooling-tower-heat-transfer/
+  https://engineersedge.com/wwwboard/posts/4384.html
+  https://oxmaint.com/industries/hvac/cooling-tower-water-consumption-metrics-for-industrial-facilities
+  可信度：B–C
+
+----------------------------------------------------------------
+4. 碳排
+----------------------------------------------------------------
+[emission_factor] 0.466 kg CO2e/kWh — 2025 年度（114 年）「產業」電力排碳係數
+  （同年度公用售電業整體 0.467；民生住宅 0.471；全國電力排放係數初估 0.456）
+  經濟部能源署 2026-06-02 公布
+  https://technews.tw/?p=1565723
+  https://udn.com/news/story/7238/9540934
+  https://wantrich.chinatimes.com/news/20260602900530-420101
+  查詢：2026-11-10   可信度：B（★正式報告請改引能源署原始公告）
+[ef_decline] 排碳係數逐年下降率：基準 0%，可設 2%/年模擬電網減碳。可信度：C
+
+----------------------------------------------------------------
+5. 經濟參數（安裝費、折現率等）
+----------------------------------------------------------------
+[elec_price] 4.30 NT$/kWh — 產業平均電價約 4.27 元/度（2025-09 報導；2025-10 調整產業電價未調）
+  https://money.udn.com/money/story/5648/9493796
+  https://udn.com/news/story/7238/9494030
+  參考：特高壓三段式 夏月尖峰 8.69 / 半尖峰 5.38 / 離峰 2.40；非夏月 尖峰 5.03 / 離峰 2.18
+  https://finance.technews.tw/2025/05/05/summer-electricity-rates-16th-may/
+  查詢：2026-11-10   可信度：B
+  （資料中心 24h 平穩負載，平均電價近似；若要精算請改逐時時間電價）
+[elec_escalation] 電價年漲幅 2% — 假設 C
+
+[water_price] 12.075 NT$/m³ — 台水現行第 4 段（51 度以上）單價；水價調漲仍研議中（平均可能 +30~40%）
+  https://www.cna.com.tw/news/ahel/202503160013.aspx
+  https://wantrich.chinatimes.com/news/20260917900028-420501
+  查詢：2026-11-10   可信度：B   [water_escalation] 3%/年 — 假設 C
+
+[ads_equip_cost] 吸附式冰機設備 16,000 NT$/kW冷（額定點）≈ €450/kW（匯率 35.5 假設）
+  文獻範圍：€220/kW（402 kW 大機）～ €1,018/kW（製造成本推估下限，8 kW 小機）～ €1,625/kW
+  https://www.sciencedirect.com/science/article/pii/S2451904923000380
+  https://www.researchgate.net/publication/367507293_The_cost_of_manufacturing_adsorption_chillers
+  對照：吸收式冰機約 US$600/kW-th（Thunder Said Energy）
+  https://thundersaidenergy.com/downloads/absorption-chillers-the-economics/
+  可信度：C（★請向廠商詢價後更新）
+[install_factor] 安裝係數 1.6（配管、熱交換器、冷卻塔擴充、電氣、控制、施工）— 經驗值 C
+[fixed_integration] 固定整合費 NT$10,000,000（系統設計、BMS 整合、試運轉）— 假設 C
+[om_rate] 年維護費 = 設備費 × 2.5%，隨通膨 2%/年 — 假設 C
+[backup_credit] 是否抵減電動冰機容量：預設否（N+1 備援仍需保留）— 假設 C
+
+[discount_rate] 7%（名目、稅前）；敏感度 4–10%
+  參考：公用事業型標的折現率約 6%、綠能開發商 WACC 約 11%（分析師估值假設）
+  https://www.moneyweekly.com.tw/_Article?AID=205308
+  可信度：C（★請改用貴單位核定之 WACC / 最低要求報酬率）
+[life] 分析年限 15 年（AI 機房基礎設施/GPU 世代更替考量），殘值 0 — 假設 C
+[carbon_price] 碳影子價格 預設 0；敏感度 300 NT$/tCO2e（台灣碳費一般費率）。
+  資料中心非碳費徵收對象（電力業、製造業大排放源），此處僅作影子價格。可信度：B–C
+
+----------------------------------------------------------------
+6. 變更紀錄
+----------------------------------------------------------------
+2026-11-10  建立檔案；初版參數。
+2026-11-10  新增 base_supply_fixed（情境 B 溫水基準）、ads_TH_min（最低驅動溫度 50 °C）、
+            逐日動態回水策略、損益兩平投資額分析。
