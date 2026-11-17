@@ -578,7 +578,7 @@ def main():
         a_.legend(fontsize=8)
         a_.grid(alpha=0.3)
     fig.tight_layout()
-    save_fig(fig, OUT / "fig2_敏感度.png")
+    save_fig(fig, OUT / "fig4_敏感度.png")
     plt.close(fig)
 
     fig, axs = plt.subplots(1, 2, figsize=(15, 5))
@@ -597,14 +597,14 @@ def main():
         a_.set_title(f"{ttl}：NPV 地圖（折現率 {pA.discount_rate*100:.0f}%，{pA.life} 年）")
         fig.colorbar(im, ax=a_, label="NPV（百萬 NT$）")
     fig.tight_layout()
-    save_fig(fig, OUT / "fig3_NPV地圖.png")
+    save_fig(fig, OUT / "fig5_NPV地圖.png")
     plt.close(fig)
 
     fig, axs = plt.subplots(2, 1, figsize=(11, 10))
     cashflow_panel(axs[0], best_of(rA)[2], f"(a) A 冷水基準最佳：{strat_label(rA)}", pA.life)
     cashflow_panel(axs[1], best_of(rB)[2], f"(b) B 溫水基準最佳：{strat_label(rB)}", pA.life)
     fig.tight_layout()
-    save_fig(fig, OUT / "fig4_現金流量圖.png")
+    save_fig(fig, OUT / "fig6_現金流量圖.png")
     plt.close(fig)
 
     tornado.sort(key=lambda t: abs(t[2] - t[1]))
@@ -620,7 +620,7 @@ def main():
     ax.set_title(f"NPV 敏感度（B 溫水基準最佳點：{strat_label(rB)}）", fontsize=10)
     ax.grid(alpha=0.3, axis="x")
     fig.tight_layout()
-    save_fig(fig, OUT / "fig5_NPV龍捲風.png")
+    save_fig(fig, OUT / "fig7_NPV龍捲風.png")
     plt.close(fig)
 
     h_dyn = rB["h_dyn"]
@@ -644,7 +644,7 @@ def main():
     ax[2].set_ylabel("總耗電 MW（日平均）")
     ax[2].legend(fontsize=8)
     fig.tight_layout()
-    save_fig(fig, OUT / "fig6_逐時年度.png")
+    save_fig(fig, OUT / "fig8_逐時年度.png")
     plt.close(fig)
 
     # ======================================================================
