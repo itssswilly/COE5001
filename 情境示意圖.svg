@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" width="1400" height="900"
+     font-family="'Microsoft JhengHei','PingFang TC','Noto Sans TC',sans-serif">
+  <defs>
+    <marker id="mRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+    <marker id="mOra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/></marker>
+    <marker id="mBlu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="mLbl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#93c5fd"/></marker>
+    <marker id="mTea" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d9488"/></marker>
+    <marker id="mTel" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5eead4"/></marker>
+    <!-- 共用元件 -->
+    <g id="tower">
+      <polygon points="548,560 652,560 640,178 560,178" fill="#ecfeff" stroke="#0d9488" stroke-width="2"/>
+      <ellipse cx="600" cy="176" rx="40" ry="8" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+      <text x="600" y="330" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f766e">冷</text>
+      <text x="600" y="354" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f766e">卻</text>
+      <text x="600" y="378" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f766e">塔</text>
+      <text x="600" y="400" text-anchor="middle" font-size="11" fill="#0f766e">（濕式）</text>
+      <path d="M582,162 q-6,-8 0,-14 q6,-8 0,-14" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M600,162 q-6,-8 0,-14 q6,-8 0,-14" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M618,162 q-6,-8 0,-14 q6,-8 0,-14" fill="none" stroke="#94a3b8" stroke-width="2"/>
+      <text x="600" y="128" text-anchor="middle" font-size="11" fill="#64748b">排熱・蒸發耗水</text>
+    </g>
+    <g id="bolt"><path d="M0,0 L-8,14 L-1,14 L-6,27 L9,9 L2,9 L7,0 z" fill="#facc15" stroke="#a16207" stroke-width="1"/></g>
+  </defs>
+
+  <rect width="1400" height="900" fill="#ffffff"/>
+
+  <!-- 標題 -->
+  <text x="20" y="40" font-size="24" font-weight="bold" fill="#111827">液冷廢熱驅動吸附式冰機：我們模擬的兩個情境</text>
+  <text x="20" y="62" font-size="13" fill="#4b5563">台灣南部科學園區・10 MW AI 機房（GB300 等級）｜兩情境只改冷卻方式，其餘固定｜臺南 8760 小時氣象</text>
+  <!-- 圖例 -->
+  <g font-size="11" fill="#374151">
+    <line x1="900" y1="30" x2="925" y2="30" stroke="#dc2626" stroke-width="4"/><text x="930" y="34">液冷回水／驅動熱水（熱）</text>
+    <line x1="1090" y1="30" x2="1115" y2="30" stroke="#f59e0b" stroke-width="4"/><text x="1120" y="34">液冷供水</text>
+    <line x1="1190" y1="30" x2="1215" y2="30" stroke="#2563eb" stroke-width="4"/><text x="1220" y="34">冰水 18 °C</text>
+    <line x1="900" y1="52" x2="925" y2="52" stroke="#0d9488" stroke-width="4"/><text x="930" y="56">冷卻水（送往冷卻塔排熱）</text>
+    <use href="#bolt" transform="translate(1100,42) scale(0.7)"/><text x="1120" y="56">電力輸入</text>
+  </g>
+
+  <!-- ================= 左：Baseline ================= -->
+  <g transform="translate(20,0)">
+    <rect x="0" y="72" width="670" height="568" rx="12" fill="#fafafa" stroke="#9ca3af" stroke-width="1.5"/>
+    <text x="335" y="97" text-anchor="middle" font-size="17" font-weight="bold" fill="#1f2937">Baseline：冷卻塔直接排熱 ＋ 電動冰機</text>
+    <text x="335" y="116" text-anchor="middle" font-size="11.5" fill="#6b7280">情境 A 供水跟著濕球（≈25–34 °C）／情境 B 供水固定 40 °C</text>
+
+    <!-- 機房 -->
+    <rect x="20" y="130" width="180" height="430" rx="8" fill="#f3f4f6" stroke="#6b7280"/>
+    <text x="110" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#374151">AI 機房　IT 10 MW</text>
+    <rect x="32" y="160" width="156" height="140" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="110" y="192" text-anchor="middle" font-size="14" font-weight="bold" fill="#991b1b">液冷機櫃（DLC）</text>
+    <text x="110" y="214" text-anchor="middle" font-size="11.5" fill="#7f1d1d">GB300 NVL72 × ~70 櫃</text>
+    <text x="110" y="238" text-anchor="middle" font-size="16" font-weight="bold" fill="#991b1b">8.2 MW（82%）</text>
+    <text x="110" y="262" text-anchor="middle" font-size="11" fill="#7f1d1d">冷板直接帶走晶片熱</text>
+    <rect x="32" y="320" width="156" height="220" rx="6" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="110" y="352" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">氣冷負載</text>
+    <text x="110" y="376" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">Q_air 1.8 MW（18%）</text>
+    <text x="110" y="400" text-anchor="middle" font-size="11.5" fill="#1e40af">CRAH 空調箱</text>
+    <text x="110" y="420" text-anchor="middle" font-size="11.5" fill="#1e40af">需要 18 °C 冰水</text>
+
+    <!-- CDU -->
+    <rect x="330" y="170" width="120" height="80" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="390" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">CDU ＋ 板換</text>
+    <text x="390" y="225" text-anchor="middle" font-size="11" fill="#92400e">液冷迴路</text>
+    <line x1="188" y1="185" x2="326" y2="185" stroke="#dc2626" stroke-width="4" marker-end="url(#mRed)"/>
+    <text x="259" y="178" text-anchor="middle" font-size="11.5" fill="#b91c1c">回水 ≈35–44 °C</text>
+    <line x1="330" y1="235" x2="192" y2="235" stroke="#f59e0b" stroke-width="4" marker-end="url(#mOra)"/>
+    <text x="259" y="228" text-anchor="middle" font-size="11.5" fill="#b45309">供水 ≈25–34 °C</text>
+    <text x="259" y="252" text-anchor="middle" font-size="10" fill="#6b7280">（濕球 + 6 K）</text>
+    <line x1="450" y1="185" x2="544" y2="185" stroke="#dc2626" stroke-width="4" marker-end="url(#mRed)"/>
+    <line x1="548" y1="235" x2="454" y2="235" stroke="#f59e0b" stroke-width="4" marker-end="url(#mOra)"/>
+    <text x="497" y="178" text-anchor="middle" font-size="11" fill="#b91c1c">8.2 MW 熱</text>
+
+    <!-- 電動冰機 -->
+    <rect x="330" y="395" width="120" height="95" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="390" y="428" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">電動冰機</text>
+    <text x="390" y="450" text-anchor="middle" font-size="12" fill="#1e40af">COP 5–6</text>
+    <text x="390" y="470" text-anchor="middle" font-size="11" fill="#1e40af">全量供應 Q_air</text>
+    <line x1="330" y1="420" x2="192" y2="420" stroke="#2563eb" stroke-width="4" marker-end="url(#mBlu)"/>
+    <text x="259" y="413" text-anchor="middle" font-size="11.5" fill="#1d4ed8">冰水 18 °C</text>
+    <line x1="188" y1="470" x2="326" y2="470" stroke="#93c5fd" stroke-width="4" marker-end="url(#mLbl)"/>
+    <text x="259" y="463" text-anchor="middle" font-size="11" fill="#3b82f6">回水 ≈24 °C</text>
+    <line x1="450" y1="420" x2="544" y2="420" stroke="#0d9488" stroke-width="4" marker-end="url(#mTea)"/>
+    <text x="497" y="413" text-anchor="middle" font-size="11" fill="#0f766e">≈37 °C</text>
+    <line x1="548" y1="470" x2="454" y2="470" stroke="#5eead4" stroke-width="4" marker-end="url(#mTel)"/>
+    <text x="497" y="463" text-anchor="middle" font-size="11" fill="#0f766e">≈32 °C</text>
+    <use href="#bolt" transform="translate(386,500)"/>
+    <text x="390" y="548" text-anchor="middle" font-size="11.5" fill="#a16207">電力 Q_air/COP_e ≈ 260–350 kW</text>
+
+    <use href="#tower"/>
+    <text x="335" y="620" text-anchor="middle" font-size="12.5" fill="#374151">所有熱最後都進冷卻塔；耗電主要來自<tspan font-weight="bold">電動冰機</tspan></text>
+  </g>
+
+  <!-- ================= 右：Scenario ================= -->
+  <g transform="translate(710,0)">
+    <rect x="0" y="72" width="670" height="568" rx="12" fill="#f7fdf9" stroke="#16a34a" stroke-width="1.5"/>
+    <text x="335" y="97" text-anchor="middle" font-size="17" font-weight="bold" fill="#14532d">Scenario：液冷回水驅動吸附式冰機</text>
+    <text x="335" y="116" text-anchor="middle" font-size="11.5" fill="#6b7280">液冷回水拉高到 T_ret（52–62 °C）→ 廢熱變冷量 → 少開電動冰機</text>
+
+    <!-- 機房 -->
+    <rect x="20" y="130" width="180" height="430" rx="8" fill="#f3f4f6" stroke="#6b7280"/>
+    <text x="110" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#374151">AI 機房　IT 10 MW</text>
+    <rect x="32" y="160" width="156" height="140" rx="6" fill="#fee2e2" stroke="#dc2626"/>
+    <text x="110" y="192" text-anchor="middle" font-size="14" font-weight="bold" fill="#991b1b">液冷機櫃（DLC）</text>
+    <text x="110" y="216" text-anchor="middle" font-size="16" font-weight="bold" fill="#991b1b">8.2 MW + ΔP_IT</text>
+    <rect x="40" y="236" width="140" height="52" rx="5" fill="#ffffff" stroke="#dc2626" stroke-dasharray="4 3"/>
+    <text x="110" y="256" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#dc2626">▲ 晶片跟著升溫</text>
+    <text x="110" y="276" text-anchor="middle" font-size="11" fill="#dc2626">漏電流↑ → IT 多耗電</text>
+    <rect x="32" y="320" width="156" height="220" rx="6" fill="#dbeafe" stroke="#2563eb"/>
+    <text x="110" y="352" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">氣冷負載</text>
+    <text x="110" y="376" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e3a8a">Q_air 1.8 MW（18%）</text>
+    <text x="110" y="400" text-anchor="middle" font-size="11.5" fill="#1e40af">CRAH 空調箱</text>
+    <text x="110" y="420" text-anchor="middle" font-size="11.5" fill="#1e40af">需要 18 °C 冰水</text>
+
+    <!-- CDU -->
+    <rect x="330" y="170" width="120" height="80" rx="6" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="390" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">CDU ＋ 板換</text>
+    <text x="390" y="225" text-anchor="middle" font-size="11" fill="#92400e">液冷迴路</text>
+    <line x1="188" y1="185" x2="326" y2="185" stroke="#dc2626" stroke-width="5" marker-end="url(#mRed)"/>
+    <text x="259" y="177" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#b91c1c">回水 52–62 °C</text>
+    <line x1="330" y1="235" x2="192" y2="235" stroke="#f59e0b" stroke-width="4" marker-end="url(#mOra)"/>
+    <text x="262" y="228" text-anchor="middle" font-size="11" fill="#b45309">供水 = T_ret − 10 K</text>
+    <text x="259" y="252" text-anchor="middle" font-size="10" fill="#6b7280">（比 Baseline 高）</text>
+    <line x1="450" y1="185" x2="544" y2="185" stroke="#dc2626" stroke-width="4" marker-end="url(#mRed)"/>
+    <line x1="548" y1="235" x2="454" y2="235" stroke="#f59e0b" stroke-width="4" marker-end="url(#mOra)"/>
+    <text x="497" y="178" text-anchor="middle" font-size="11" fill="#b91c1c">剩餘廢熱</text>
+
+    <!-- 驅動熱水 -->
+    <line x1="412" y1="250" x2="412" y2="296" stroke="#dc2626" stroke-width="4" marker-end="url(#mRed)"/>
+    <line x1="368" y1="300" x2="368" y2="254" stroke="#f59e0b" stroke-width="4" marker-end="url(#mOra)"/>
+    <text x="420" y="279" font-size="11" fill="#b91c1c">驅動熱水 ≥50 °C</text>
+
+    <!-- 吸附式冰機 -->
+    <rect x="330" y="300" width="120" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+    <text x="390" y="326" text-anchor="middle" font-size="14" font-weight="bold" fill="#14532d">吸附式冰機</text>
+    <text x="390" y="346" text-anchor="middle" font-size="11" fill="#166534">矽膠-水</text>
+    <text x="390" y="364" text-anchor="middle" font-size="11" fill="#166534">熱力 COP 0.5–0.6</text>
+    <text x="390" y="381" text-anchor="middle" font-size="10" fill="#166534">冬強夏弱</text>
+    <line x1="330" y1="335" x2="192" y2="335" stroke="#2563eb" stroke-width="4" marker-end="url(#mBlu)"/>
+    <text x="259" y="328" text-anchor="middle" font-size="11.5" fill="#1d4ed8">冰水 18 °C</text>
+    <line x1="188" y1="370" x2="326" y2="370" stroke="#93c5fd" stroke-width="4" marker-end="url(#mLbl)"/>
+    <line x1="450" y1="335" x2="544" y2="335" stroke="#0d9488" stroke-width="5" marker-end="url(#mTea)"/>
+    <text x="497" y="328" text-anchor="middle" font-size="11" fill="#0f766e">大量排熱</text>
+    <line x1="548" y1="370" x2="454" y2="370" stroke="#5eead4" stroke-width="4" marker-end="url(#mTel)"/>
+    <text x="497" y="363" text-anchor="middle" font-size="11" fill="#0f766e">≈30 °C</text>
+    <text x="497" y="388" text-anchor="middle" font-size="10.5" fill="#7c3aed">輔機耗電↑</text>
+
+    <!-- 備援電動冰機 -->
+    <rect x="330" y="425" width="120" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="390" y="453" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">電動冰機</text>
+    <text x="390" y="473" text-anchor="middle" font-size="11" fill="#1e40af">只補不足（夏季）</text>
+    <line x1="330" y1="445" x2="192" y2="445" stroke="#2563eb" stroke-width="2.5" marker-end="url(#mBlu)"/>
+    <text x="259" y="438" text-anchor="middle" font-size="11" fill="#1d4ed8">不足時補足</text>
+    <line x1="188" y1="480" x2="326" y2="480" stroke="#93c5fd" stroke-width="2.5" marker-end="url(#mLbl)"/>
+    <line x1="450" y1="445" x2="544" y2="445" stroke="#0d9488" stroke-width="2.5" marker-end="url(#mTea)"/>
+    <line x1="548" y1="480" x2="454" y2="480" stroke="#5eead4" stroke-width="2.5" marker-end="url(#mTel)"/>
+    <use href="#bolt" transform="translate(386,505) scale(0.8)"/>
+    <text x="390" y="548" text-anchor="middle" font-size="11.5" fill="#a16207">冰機用電減少（冬季接近 0）</text>
+
+    <use href="#tower"/>
+    <text x="335" y="620" text-anchor="middle" font-size="12.5" fill="#374151">省下冰機的電，但換來<tspan font-weight="bold" fill="#dc2626">晶片升溫</tspan>與<tspan font-weight="bold" fill="#7c3aed">更多輔機耗電</tspan></text>
+  </g>
+
+  <!-- ================= 下：核心取捨 ================= -->
+  <text x="20" y="682" font-size="17" font-weight="bold" fill="#111827">核心取捨：淨節省 ΔP ＝ 好處 − 兩個代價（以年平均功率計）</text>
+
+  <rect x="20" y="698" width="300" height="104" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="170" y="726" text-anchor="middle" font-size="15" font-weight="bold" fill="#14532d">＋ 電動冰機省下的電</text>
+  <text x="170" y="752" text-anchor="middle" font-size="14" fill="#166534">Q_air ÷ COP_e</text>
+  <text x="170" y="778" text-anchor="middle" font-size="12" fill="#166534">上限 ≈ 260 kW（冷量全由吸附機供應時）</text>
+
+  <text x="337" y="760" text-anchor="middle" font-size="30" font-weight="bold" fill="#374151">−</text>
+
+  <rect x="355" y="698" width="320" height="104" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+  <text x="515" y="726" text-anchor="middle" font-size="15" font-weight="bold" fill="#991b1b">ΔP_IT 晶片升溫多耗的電</text>
+  <text x="515" y="752" text-anchor="middle" font-size="14" fill="#991b1b">k_leak × 8.2 MW × 供水升溫 ΔT</text>
+  <text x="515" y="778" text-anchor="middle" font-size="12" fill="#991b1b">k_leak 0.15 %/K → 供水每升 1 K 多 ≈ 12 kW</text>
+
+  <text x="692" y="760" text-anchor="middle" font-size="30" font-weight="bold" fill="#374151">−</text>
+
+  <rect x="710" y="698" width="300" height="104" rx="10" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="860" y="726" text-anchor="middle" font-size="15" font-weight="bold" fill="#5b21b6">ΔP_aux 輔機多耗的電</text>
+  <text x="860" y="752" text-anchor="middle" font-size="13" fill="#5b21b6">吸附機本體＋熱水泵＋冷卻塔多排熱</text>
+  <text x="860" y="778" text-anchor="middle" font-size="12" fill="#5b21b6">約 60–110 kW（隨吸附機出力增加）</text>
+
+  <text x="1027" y="760" text-anchor="middle" font-size="30" font-weight="bold" fill="#374151">＝</text>
+
+  <rect x="1045" y="698" width="335" height="104" rx="10" fill="#f9fafb" stroke="#111827" stroke-width="2"/>
+  <text x="1212" y="726" text-anchor="middle" font-size="15" font-weight="bold" fill="#111827">淨節省 ΔP</text>
+  <text x="1212" y="752" text-anchor="middle" font-size="12.5" fill="#b91c1c">A 冷水基準：所有回水溫度都 &lt; 0</text>
+  <text x="1212" y="776" text-anchor="middle" font-size="12.5" fill="#15803d">B 溫水基準：52–62 °C 為正，最多 ≈ 100 kW</text>
+
+  <!-- 兩個關鍵限制 -->
+  <rect x="20" y="818" width="660" height="66" rx="10" fill="#fffbeb" stroke="#d97706"/>
+  <text x="36" y="842" font-size="13" font-weight="bold" fill="#92400e">為什麼溫度不是越高越好？</text>
+  <text x="36" y="864" font-size="12" fill="#78350f">吸附機要 ≥50 °C 熱水才會動（回水 ≥52 °C）；動起來後冰機省電很快就飽和，</text>
+  <text x="36" y="880" font-size="12" fill="#78350f">ΔP_IT 卻隨溫度一直增加 → 最佳點 ≈「剛好能驅動吸附機的最低回水溫度」。</text>
+
+  <rect x="700" y="818" width="680" height="66" rx="10" fill="#f0f9ff" stroke="#0284c7"/>
+  <text x="716" y="842" font-size="13" font-weight="bold" fill="#075985">經濟評估怎麼算？</text>
+  <text x="716" y="864" font-size="12" fill="#0c4a6e">CAPEX（設備單價 × 安裝係數 1.6 ＋ 整合費）→ 每年省電費・水費 − 維護費</text>
+  <text x="716" y="880" font-size="12" fill="#0c4a6e">→ 折現率 7%、15 年 → NPV／IRR／回收年限（決策變數：回水溫度 × 吸附機容量）</text>
+</svg>
